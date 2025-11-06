@@ -1,0 +1,48 @@
+import java.util.Scanner;
+
+public class SafeInput {
+
+    public static String getNonZeroLenString(Scanner pipe, String prompt) {
+        String input;
+        do {
+            System.out.print(prompt);
+            input = pipe.nextLine().trim();
+        } while (input.isEmpty());
+        return input;
+    }
+
+    public static String getRegExString(Scanner pipe, String prompt, String regEx) {
+        String input;
+        do {
+            System.out.print(prompt);
+            input = pipe.nextLine().trim();
+        } while (!input.matches(regEx));
+        return input;
+    }
+
+    public static int getRangedInt(Scanner pipe, String prompt, int low, int high) {
+        int result = 0;
+        boolean valid;
+        do {
+            System.out.print(prompt);
+            if (pipe.hasNextInt()) {
+                result = pipe.nextInt();
+                pipe.nextLine();
+                valid = result >= low && result <= high;
+            } else {
+                pipe.nextLine();
+                valid = false;
+            }
+        } while (!valid);
+        return result;
+    }
+
+    public static boolean getYNConfirm(Scanner pipe, String prompt) {
+        String response;
+        do {
+            System.out.print(prompt + " [Y/N]: ");
+            response = pipe.nextLine().trim().toUpperCase();
+        } while (!response.equals("Y") && !response.equals("N"));
+        return response.equals("Y");
+    }
+}
